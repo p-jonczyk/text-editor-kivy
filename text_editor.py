@@ -1,11 +1,21 @@
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, ColorProperty
 from kivy.uix.popup import Popup
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from kivy.config import Config
+from kivy.lang import Builder
+from kivy.base import EventLoop
+from kivy.uix.bubble import Bubble
+from kivy.uix.scatter import Scatter
+from kivy.graphics.transformation import Matrix
 import os
+
+# disables multitouch functionality of kivy (usfule for mobiles)
+Config.set('input', 'mouse', 'mouse,disable_multitouch')
 
 
 class LoadDialog(FloatLayout):
@@ -21,10 +31,8 @@ class SaveDialog(FloatLayout):
     cancel = ObjectProperty()
 
 
-class Root(FloatLayout):
+class Root(FloatLayout, Scatter):
     # creats objects for root
-    loadfile = ObjectProperty()
-    savefile = ObjectProperty()
     text_input = ObjectProperty()
 
     def dismiss_popup(self):
@@ -60,6 +68,32 @@ class Root(FloatLayout):
             stream.write(self.text_input.text)
 
         self.dismiss_popup()
+
+    def on_touch_up(self, touch):
+        # handeling different mouse actions
+
+        # menu showne when mouse right-click
+        if touch.button == 'right':
+            # built-in function for text input field
+            self.text_input._show_cut_copy_paste(
+                (touch.x, touch.y), EventLoop.window, mode='paste')
+
+        if super(Root, self).on_touch_up(touch) and touch.is_mouse_scrolling:
+            # zooming in/out acording to coursor possition
+            if touch.button == 'scrollup':
+                mat = Matrix().scale(0.9, 0.9, 0.9)
+                self.apply_transform(mat, anchor=touch.pos)
+            elif touch.button == 'scrolldown':
+                mat = Matrix().scale(1.1, 1.1, 1.1)
+                self.apply_transform(mat, anchor=touch.pos)
+
+    def redo(self):
+        # redo functionality
+        self.text_input.do_redo()
+
+    def undo(self):
+        # undo functionality
+        self.text_input.do_undo()
 
 
 class SimpleEditor(App):

@@ -14,7 +14,9 @@ Root:
                 # keyword for external reference (for load/save functions)
                 id: text_input
                 # starting value of text 
-                text: "Type here... # just remember to save with '.txt' extention"
+                text: "Type here... # remember to save with '.txt' extention"
+                # possibility to select text and copy/past/cut
+                use_bubble: True
         # setting buttons 
         Button:
             pos_hint:{"x":0.1,"y":0.05}
@@ -28,14 +30,25 @@ Root:
             size_hint: 0.3, 0.07
             text: "Open"
             # functionality of Open button 
-            on_release:
-                root.show_load()
+            on_release: root.show_load()
+        Button:
+            pos_hint:{"x":0.1,"y":0.95}
+            size_hint: 0.1, 0.05
+            text: "Undo"
+            # functionality of undo button 
+            on_release: root.undo()
+        Button:
+            pos_hint:{"x":0.2,"y":0.95}
+            size_hint: 0.1, 0.05
+            text: "Redo"
+            # functionality of redo button 
+            on_release: root.redo()
 
 # rule of load dialog
 <LoadDialog>:
-    # setting type of layout for load dialog
+# setting type of layout for load dialog
     BoxLayout:
-        # setting dialog as dynamic size and position
+    # setting dialog as dynamic size and position
         size: root.size
         pos: root.pos
         orientation: "vertical"
