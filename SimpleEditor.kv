@@ -1,0 +1,94 @@
+# root widget 
+Root:
+    # propertie of root
+    text_input: text_input
+    # setting type of layoput for root 
+    FloatLayout:
+        # setting type of layout for text input field 
+        BoxLayout:
+        # settings for input field
+            pos_hint: {"x": 0.05, "top": 0.95}
+            size_hint: 0.9, 0.7
+            # setting text input
+            TextInput:
+                # keyword for external reference (for load/save functions)
+                id: text_input
+                # starting value of text 
+                text: "Type here... # just remember to save with '.txt' extention"
+        # setting buttons 
+        Button:
+            pos_hint:{"x":0.1,"y":0.05}
+            size_hint: 0.3, 0.07
+            text: "Save"
+            # functionality of Save button 
+            on_release:
+                root.show_save()
+        Button:
+            pos_hint:{"x":0.6,"y":0.05}
+            size_hint: 0.3, 0.07
+            text: "Open"
+            # functionality of Open button 
+            on_release:
+                root.show_load()
+
+# rule of load dialog
+<LoadDialog>:
+    # setting type of layout for load dialog
+    BoxLayout:
+        # setting dialog as dynamic size and position
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        # use of biuld-in file chooser dialog (list view in that case)
+        FileChooserListView:
+            # keyword for external reference 
+            id: filechooser
+        # setting layout for buttons
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            # setting buttons
+            Button:
+                text: "Load"
+                # functionality of Load button
+                on_release: root.load(filechooser.path, filechooser.selection)
+            Button:
+                text: "Cancel"
+                # functionality of Cancel button
+                on_release: root.cancel()
+
+# rule of save dialog 
+<SaveDialog>:
+    # keyword for external reference 
+    text_input: text_input
+    # setting type of layout for save dialog
+    BoxLayout:
+        # setting diloag as dynamic size and position
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        # use of biuld-in file chooser dialog (list view in that case)
+        FileChooserListView:
+            # keyword for external reference 
+            id: filechooser
+            # field of file name takes value of selected item from save dialog
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+        # setting file name field 
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: 30
+            multiline: False
+        # setting layout for buttons
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            # setting buttons 
+            Button:
+                text: "Save"
+                # functionality of save button
+                on_release: root.save(filechooser.path, text_input.text)
+            Button:
+                text: "Cancel"
+                # functionality of cancel button
+                on_release: root.cancel()
