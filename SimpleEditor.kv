@@ -19,30 +19,73 @@ Root:
                 use_bubble: True
         # setting buttons 
         Button:
-            pos_hint:{"x":0.1,"y":0.05}
+            pos_hint:{"x":0.1,"y":0.15}
             size_hint: 0.3, 0.07
             text: "Save"
             # functionality of Save button 
             on_release:
-                root.show_save()
+                root.show_save() 
         Button:
-            pos_hint:{"x":0.6,"y":0.05}
+            pos_hint:{"x":0.6,"y":0.15}
             size_hint: 0.3, 0.07
             text: "Open"
             # functionality of Open button 
             on_release: root.show_load()
         Button:
-            pos_hint:{"x":0.1,"y":0.95}
+            pos_hint:{"x":0.4,"y":0.05}
+            size_hint: 0.2, 0.07
+            text: "Quit"
+            # functionality of clear button
+            on_release: quit()
+        Button:
+            pos_hint:{"x":0.05,"y":0.95}
             size_hint: 0.1, 0.05
             text: "Undo"
             # functionality of undo button 
             on_release: root.undo()
         Button:
-            pos_hint:{"x":0.2,"y":0.95}
+            pos_hint:{"x":0.15,"y":0.95}
             size_hint: 0.1, 0.05
             text: "Redo"
             # functionality of redo button 
             on_release: root.redo()
+        Button:
+            pos_hint:{"x":0.45,"y":0.95}
+            size_hint: 0.1, 0.05
+            text: "Cut"
+            # functionality of cut button
+            on_release: root.cut_btn()     
+        Button:
+            pos_hint:{"x":0.35,"y":0.95}
+            size_hint: 0.1, 0.05
+            text: "Copy"
+            # functionality of cut button
+            on_release: root.copy_btn()
+        Button:
+            pos_hint:{"x":0.25,"y":0.95}
+            size_hint: 0.1, 0.05
+            text: "Paste"
+            # functionality of cut button
+            on_release: root.paste_btn()
+        Button:
+            pos_hint:{"x":0.55,"y":0.95}
+            size_hint: 0.1, 0.05
+            text: "Select all"
+            # functionality of cut button
+            on_release: root.select_all_btn()
+        Button:
+            pos_hint:{"x":0.65,"y":0.95}
+            size_hint: 0.1, 0.05
+            text: "Print"
+            # functionality of print button
+            on_release: root.print_file()
+        Button:
+            pos_hint:{"x":0.85,"y":0.95}
+            size_hint: 0.1, 0.05
+            text: "Clear all"
+            # functionality of clear button
+            on_release: root.clear_text_input()     
+         
 
 # rule of load dialog
 <LoadDialog>:

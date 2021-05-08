@@ -5,6 +5,17 @@ If there will be any problem with installation go to: https://kivy.org/doc/stabl
 
 ###  FUNCTIONALITY  ###
 
+
+v1.1
+- Clear all button
+- Quite button
+- Print button
+- Paste button
+- Cut button 
+- Copy button
+- Select all button
+
+v1.0
 - save/load/read .txt files 
     # remark: remember about .txt extention while naming a file :)
 - standard shortcuts functionality (i.e. copy/paste/redo/undo etc.)
@@ -13,3 +24,5 @@ If there will be any problem with installation go to: https://kivy.org/doc/stabl
 - zoom in/out with use of scroll according to mouse position
 - control position of editor by holding left-key 
     # remark: mouse need to be inside root layout and outside text space
+- undo/redo buttons
+

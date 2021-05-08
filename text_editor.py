@@ -1,5 +1,4 @@
-from kivy.properties import ObjectProperty, ColorProperty
-from kivy.uix.popup import Popup
+from kivy.properties import ObjectProperty, ColorProperty, StringProperty
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
@@ -12,7 +11,9 @@ from kivy.base import EventLoop
 from kivy.uix.bubble import Bubble
 from kivy.uix.scatter import Scatter
 from kivy.graphics.transformation import Matrix
+from kivy.uix.dropdown import DropDown
 import os
+import tempfile
 
 # disables multitouch functionality of kivy (usfule for mobiles)
 Config.set('input', 'mouse', 'mouse,disable_multitouch')
@@ -94,6 +95,32 @@ class Root(FloatLayout, Scatter):
     def undo(self):
         # undo functionality
         self.text_input.do_undo()
+
+    def print_file(self):
+        # print functionality
+        printit = tempfile.mktemp(".txt")
+        open(printit, 'w').write(self.text_input.text)
+        os.startfile(printit, "print")
+
+    def clear_text_input(self):
+        # clear all text functionality
+        self.text_input.text = ""
+
+    def cut_btn(self):
+        # cut text functionality
+        self.text_input.cut()
+
+    def copy_btn(self):
+        # copy text functionality
+        self.text_input.copy()
+
+    def paste_btn(self):
+        # paste text functionality
+        self.text_input.paste()
+
+    def select_all_btn(self):
+        # select all text functionality
+        self.text_input.select_all()
 
 
 class SimpleEditor(App):
